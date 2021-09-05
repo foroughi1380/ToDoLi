@@ -1,0 +1,69 @@
+@font-face {
+    font-family: "vazir-regular";
+    src: url("../fonts/Vazir-Regular-UI.woff2") , url("../fonts/Vazir-Regular-UI.woff") , url("../fonts/Vazir-Regular-UI.ttf");
+}
+
+.font-vazir{
+    font-family: 'vazir-regular', serif;
+}
+
+*{
+    box-sizing: border-box;
+    font-family: 'vazir-regular', serif;
+}
+
+html , body {
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    direction: rtl;
+}
+
+.input-textbox{
+    border-radius: 25px;
+    background: rgba(255 , 255 , 255 , .3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin: .2rem;
+}
+
+.input-textbox * {
+    font-size: 1.3rem !important;
+}
+
+.input-textbox .material-icons {
+    font-size: 2rem !important;
+}
+
+.input-textbox input , .input-textbox .ctextarea{
+    background: transparent;
+    padding-right: 10px;
+    padding-left: 10px;
+    border : none;
+    transition: margin .1s;
+}
+
+
+.input-textbox input:focus , .input-textbox .ctextarea:focus {
+    background: transparent;
+    box-shadow: none;
+    text-shadow: none;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+
+.spiner{
+    font-size: 0;
+    color: transparent;
+    width: 3.5rem !important;
+    height: 3.5rem !important;
+}
+.default-cursor{
+    cursor: default;
+}
+

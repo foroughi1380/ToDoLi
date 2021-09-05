@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" type="text/css" href="css/profile.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+            integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <link rel="stylesheet" href="css/orgchart.css">
+
+</head>
+<body>
+
+<main id="app">
+
+    <header>
+        <!--- Navbar --->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand text-white font-weight-bold p-0" href="#"><img src="images/logo.png" alt="logo"
+                                                                                      class="logo">ToDoLi</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nvbCollapse"
+                        aria-controls="nvbCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="nvbCollapse">
+                    <ul class="d-flex navbar-nav ml-auto align-items-center">
+
+                        <div class="dropdown show">
+                                <span class="material-icons text-white mdl-badge mdl-badge--overlap mt-2 default-cursor dropdown-toggle"
+                                      :data-badge="notifications.length" data-toggle="dropdown" aria-haspopup="true"
+                                      aria-expanded="false">
+                                    notifications_none
+                                </span>
+
+                            <div class="dropdown-menu p-2" aria-labelledby="dropdownMenuLink">
+                                <section class="dropdown-item card mb-2" v-for="n in notifications">
+                                        <span class="mdl-chip mdl-chip--contact">
+                                            <img :src="getImageUrl(n.User[0].picture)"
+                                                 class="mdl-chip__contact mdl-color--teal mdl-color-text--white"
+                                                 v-if="n.User[0].picture != null">
+                                            <img src="images/profile.jpg"
+                                                 class="mdl-chip__contact mdl-color--teal mdl-color-text--white" v-else>
+                                            <span class="mdl-chip__text">{{ n.User[0].name }} {{
+                                                    n.User[0].family
+                                                }} {{ persian(jalali(n.updatedat)) }} {{ persian(getTime(n.updatedat)) }}</span>
+                                        </span>
+                                    <span v-text="n.message" class="card-body"></span>
+                                </section>
+                            </div>
+                        </div>
+
+                        <div class="dropdown show">
+                                <span class="material-icons text-white mdl-badge mdl-badge--overlap mt-2 default-cursor dropdown-toggle"
+                                      :data-badge="joins.length" data-toggle="dropdown" aria-haspopup="true"
+                                      aria-expanded="false">
+                                    work_outline
+                                </span>
+
+                            <div class="dropdown-menu p-2" aria-labelledby="dropdownMenuLink">
+                                <section class="dropdown-item card mb-2" v-for="j in joins">
+                                        <span class="mdl-chip mdl-chip--contact">
+                                            <img :src="getImageUrl(j.User[0].picture)"
+                                                 class="mdl-chip__contact mdl-color--teal mdl-color-text--white"
+                                                 v-if="j.User[0].picture != null">
+                                            <img src="images/profile.jpg"
+                                                 class="mdl-chip__contact mdl-color--teal mdl-color-text--white" v-else>
+                                            <span class="mdl-chip__text">{{ j.User[0].name }} {{
+                                                    j.User[0].family
+                                                }} {{ persian(jalali(j.updatedat)) }} {{ persian(getTime(j.updatedat)) }}</span>
+                                        </span>
+                                    <section class="card-body text-center">
+                                        <p> درخواست عضویت در "{{j.GroupOrg[0].name}}" با صمت "{{j.title}}"</p>
+
+                                        <button class="mdl-button mdl-js-button" @click="joinAccept(false , j)">
+                                              <span class="text-danger">
+                                                رد کردن
+                                              </span>
+                                        </button>
+
+                                        <button class="mdl-button mdl-js-button" @click="joinAccept(true , j)">
+                                            قبول
+                                        </button>
+
+                                    </section>
+                                </section>
+                            </div>
+                        </div>
+
+                        <li class="nav-item pl-1">
+                            <section class="dropdown">
+                                <img id="profile_image" :src="getImageUrl(user.picture)"
+                                     class="dropdown-toggle rounded-circle"
+                                     role="img" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                     alt="profile" v-if="user.picture != null"/>
+
+                                <img id="profile_image" src="images/profile.jpg" class="dropdown-toggle rounded-circle"
+                                     role="img" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                     alt="profile" v-else/>
+
+                                <div class="dropdown-menu" aria-labelledby="profile_image">
+                                    <a class="dropdown-item" href="profile.html">ویرایش پروفایل</a>
+                                    <a class="dropdown-item" href="profile.html" @click="logout">خروج</a>
+                                </div>
+                            </section>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <ul class="nav nav-tabs justify-content-center bg-white">
+            <li class="nav-item" v-for="g in groups">
+                <span :class="['nav-link default-cursor', {'active' : $route.path === '/group/' + g.id}]"
+                      @click="openGroup(g)">{{ g.name }}</span>
+            </li>
+
+            <li class="nav-item" @click="goto('createGroup')">
+                <span :class="['nav-link  material-icons default-cursor', {'active' : $route.path === '/createGroup'}]">add_circle_outline</span>
+            </li>
+        </ul>
+    </header>
+    <router-view></router-view>
+</main>
+
+<script src="js/profile.js"></script>
+
+
+</body>
+</html>

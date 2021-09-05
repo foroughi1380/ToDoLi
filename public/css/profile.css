@@ -1,0 +1,63 @@
+@font-face {
+    font-family: "vazir-regular";
+    src: url("../fonts/Vazir-Regular-UI.woff2"), url("../fonts/Vazir-Regular-UI.woff"), url("../fonts/Vazir-Regular-UI.ttf");
+}
+
+.font-vazir {
+    font-family: 'vazir-regular', serif !important;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'vazir-regular', serif;
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    direction: rtl;
+}
+
+body {
+    background: url("../images/back/b1.png");
+    /*background-color: rgb(236, 236, 236) !important;*/
+    /*background-size: cover;*/
+}
+header{
+    z-index: 999;
+    position: sticky;
+}
+.navbar {
+    background-color: #484848;
+    direction: ltr;
+}
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.navbar .navbar-nav .nav-link {
+    color: #fff;
+}
+
+.navbar .navbar-nav .nav-link:hover {
+    color: #fbc531;
+}
+
+.navbar .navbar-nav .active > .nav-link {
+    color: #fbc531;
+}
+.navbar .navbar-nav #profile_image{
+    width: 35px;
+    height: 35px;
+    margin: 1px;
+}
+
+.nav-link .active {
+    background-color: rgb(236, 236, 236) !important;
+}
+.input-textbox{
+    background: rgba(255 , 255 , 255 , .9)  !important;
+}
