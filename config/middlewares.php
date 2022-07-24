@@ -27,4 +27,6 @@ $core_middlewares = [
 
 
     "notifications" => array("Guard"),
+
+    "export" => array("Guard")
 ];

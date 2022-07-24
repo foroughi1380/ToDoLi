@@ -37,5 +37,7 @@ $core_actions = [
 
     "notifications" => array("GET" , "NotificationController" , "index"),
 
+    "export" => ["POST" , "ExportController" , "export"]
+
 
 ];
